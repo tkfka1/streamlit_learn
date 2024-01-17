@@ -4,9 +4,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Neo4j 데이터베이스 연결 설정
-uri = "neo4j+s://123.databases.neo4j.io"  # Neo4j 인스턴스의 URI
+uri = "neo4j+s://7.databases.neo4j.io"  # Neo4j 인스턴스의 URI
 username = "neo4j"  # 사용자 이름
-password = "123"  # 비밀번호
+password = "1"  # 비밀번호
 auth = (username, password)
 # driver = GraphDatabase.driver(uri, auth=(username, password))
 
@@ -18,9 +18,8 @@ auth = (username, password)
 
 # 데이터 검색 쿼리
 query = """
-MATCH (o:Order)-[:CONTAINS]->(p:Product)
-RETURN o.date AS date, SUM(p.price) AS sales
-ORDER BY o.date
+MATCH (n)-[r]->(m)
+RETURN n, r, m
 """
 
 # 데이터 검색
@@ -29,6 +28,11 @@ ORDER BY o.date
 with GraphDatabase.driver(uri, auth=auth) as driver:
     driver.verify_connectivity()
 
+
+with GraphDatabase.driver(uri, auth=auth) as driver:
+    result = driver.session().run(query)
+    print(result)
+    print([record for record in result])
 
 # # 데이터 프레임으로 변환
 # df = pd.DataFrame(data, columns=['date', 'sales'])
