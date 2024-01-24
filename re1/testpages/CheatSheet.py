@@ -10,6 +10,8 @@ st.set_page_config(
      initial_sidebar_state="expanded",
 )
 
+st.markdown("### 👨‍🔧 문법 정리")
+
 # Thanks to streamlitopedia for the following code snippet
 
 def img_to_bytes(img_path):
